@@ -36,6 +36,9 @@
     </dependency>                
 
     ```
+	Agregamos las dependencias y las carpetas con el código dado:
+
+	![](./img/punto1.png)
 
 ## Front-End - Vistas
 
@@ -44,10 +47,12 @@
     ```
     src/main/resources/static
     ```
+   
+   ![](./img/punto2.png)
 
-4. Cree, en el directorio anterior, la página index.html, sólo con lo básico: título, campo para la captura del autor, botón de 'Get blueprints', campo <div> donde se mostrará el nombre del autor seleccionado, [la tabla HTML](https://www.w3schools.com/html/html_tables.asp) donde se mostrará el listado de planos (con sólo los encabezados), y un campo <div> donde se mostrará el total de puntos de los planos del autor. Recuerde asociarle identificadores a dichos componentes para facilitar su búsqueda mediante selectores.
+2. Cree, en el directorio anterior, la página index.html, sólo con lo básico: título, campo para la captura del autor, botón de 'Get blueprints', campo <div> donde se mostrará el nombre del autor seleccionado, [la tabla HTML](https://www.w3schools.com/html/html_tables.asp) donde se mostrará el listado de planos (con sólo los encabezados), y un campo <div> donde se mostrará el total de puntos de los planos del autor. Recuerde asociarle identificadores a dichos componentes para facilitar su búsqueda mediante selectores.
 
-5. En el elemento \<head\> de la página, agregue las referencia a las librerías de jQuery, Bootstrap y a la hoja de estilos de Bootstrap.
+3. En el elemento \<head\> de la página, agregue las referencia a las librerías de jQuery, Bootstrap y a la hoja de estilos de Bootstrap.
     ```html
     <head>
         <title>Blueprints</title>
@@ -60,45 +65,79 @@
           href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
     </head>
     ```
+   ```index.html``` solamente con lo básico:
 
-
-5. Suba la aplicación (mvn spring-boot:run), y rectifique:
-	1. Que la página sea accesible desde:
-    ```
-    http://localhost:8080/index.html
-    ```
-	2. Al abrir la consola de desarrollador del navegador, NO deben aparecer mensajes de error 404 (es decir, que las librerías de JavaScript se cargaron correctamente).
-
+   ![](./img/punto3.png)
+	
+   4. Suba la aplicación (mvn spring-boot:run), y rectifique:
+       1. Que la página sea accesible desde:
+       ```
+       http://localhost:8080/index.html
+       ```
+       2. Al abrir la consola de desarrollador del navegador, NO deben aparecer mensajes de error 404 (es decir, que las librerías de JavaScript se cargaron correctamente).
+		   
+          Podemos ver que todo carga correctamente sin lanzar error 404:        
+          ![](./img/punto4.png)
+ 
 ## Front-End - Lógica
 
 1. Ahora, va a crear un Módulo JavaScript que, a manera de controlador, mantenga los estados y ofrezca las operaciones requeridas por la vista. Para esto tenga en cuenta el [patrón Módulo de JavaScript](https://toddmotto.com/mastering-the-module-pattern/), y cree un módulo en la ruta static/js/app.js .
+   Implementamos el módulo controlador haciendo uso del patrón Módulo, que consume ```apimock.js``` y actualiza la vista:
+   ![](./img/punto5.png)
 
 2. Copie el módulo provisto (apimock.js) en la misma ruta del módulo antes creado. En éste agréguele más planos (con más puntos) a los autores 'quemados' en el código.
 
+   Agregamos más planos para tener más datos de prueba:
+   ![](./img/punto6.png)
+    
 3. Agregue la importación de los dos nuevos módulos a la página HTML (después de las importaciones de las librerías de jQuery y Bootstrap):
     ```html
     <script src="js/apimock.js"></script>
     <script src="js/app.js"></script>
     ```
-
+    Ponemos en head las nuevas importaciones:
+   ![](./img/punto7.png)
+    
 3. Haga que el módulo antes creado mantenga de forma privada:
 	* El nombre del autor seleccionado.
 	* El listado de nombre y tamaño de los planos del autor seleccionado. Es decir, una lista objetos, donde cada objeto tendrá dos propiedades: nombre de plano, y número de puntos del plano.
 
    Junto con una operación pública que permita cambiar el nombre del autor actualmente seleccionado.
+   
+   Añadimos la operación requerida y mantenemos en privado los datos solicitados 
+   ![](./img/punto8-0.png)
 
+   ![](./img/punto8.png)
+
+   ![](./img/punto8-1.png) 
 
 4. Agregue al módulo 'app.js' una operación pública que permita actualizar el listado de los planos, a partir del nombre de su autor (dado como parámetro). Para hacer esto, dicha operación debe invocar la operación 'getBlueprintsByAuthor' del módulo 'apimock' provisto, enviándole como _callback_ una función que:
 
 	* Tome el listado de los planos, y le aplique una función 'map' que convierta sus elementos a objetos con sólo el nombre y el número de puntos.
 
-	* Sobre el listado resultante, haga otro 'map', que tome cada uno de estos elementos, y a través de jQuery agregue un elemento \<tr\> (con los respectvos \<td\>) a la tabla creada en el punto 4. Tenga en cuenta los [selectores de jQuery](https://www.w3schools.com/JQuery/jquery_ref_selectors.asp) y [los tutoriales disponibles en línea](https://www.tutorialrepublic.com/codelab.php?topic=faq&file=jquery-append-and-remove-table-row-dynamically). Por ahora no agregue botones a las filas generadas.
+      ![](./img/punto9.png)
+
+    * Sobre el listado resultante, haga otro 'map', que tome cada uno de estos elementos, y a través de jQuery agregue un elemento \<tr\> (con los respectvos \<td\>) a la tabla creada en el punto 4. Tenga en cuenta los [selectores de jQuery](https://www.w3schools.com/JQuery/jquery_ref_selectors.asp) y [los tutoriales disponibles en línea](https://www.tutorialrepublic.com/codelab.php?topic=faq&file=jquery-append-and-remove-table-row-dynamically). Por ahora no agregue botones a las filas generadas.
+
+      ![](./img/punto9.1.png)
 
 	* Sobre cualquiera de los dos listados (el original, o el transformado mediante 'map'), aplique un 'reduce' que calcule el número de puntos. Con este valor, use jQuery para actualizar el campo correspondiente dentro del DOM.
 
+      ![](./img/punto9.2.png)
+    
 5. Asocie la operación antes creada (la de app.js) al evento 'on-click' del botón de consulta de la página.
 
+![](./img/punto10.png) 
+
 6. Verifique el funcionamiento de la aplicación. Inicie el servidor, abra la aplicación HTML5/JavaScript, y rectifique que al ingresar un usuario existente, se cargue el listado del mismo.
+
+Como se puede observar ahora al buscar a un autor que si exista en ```apimock.js``` saldrá una tabla con los planos del mismo:
+
+![](./img/punto11.png)
+
+Y en el caso de que se coloque un autor que no existe se mostrará la misma tabla pero sin datos:
+
+![](./img/punto11-1.png) 
 
 ## Para la próxima semana
 
