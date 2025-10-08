@@ -177,6 +177,14 @@
 
 12. Una vez funcione la aplicación (sólo front-end), haga un módulo (llámelo 'apiclient') que tenga las mismas operaciones del 'apimock', pero que para las mismas use datos reales consultados del API REST. Para lo anterior revise [cómo hacer peticiones GET con jQuery](https://api.jquery.com/jquery.get/), y cómo se maneja el esquema de _callbacks_ en este contexto.
 
+    Cree un módulo ``apiclient`` que replica la misma API pública que ``apimock``. Esta realiza solicitudes HTTP GET reales a los puntos finales REST como ``/blueprints/{author}`` y ``/blueprints/{author}/{bpname}``, y luego llama a la devolución de llamada proporcionada con el resultado JSON (o [] / null en caso de error).
+
+    ![](./img/semana2-6.png)
+
+    ![](./img/semana2-7.png)
+
 13. Modifique el código de app.js de manera que sea posible cambiar entre el 'apimock' y el 'apiclient' con sólo una línea de código.
 
-14. Revise la [documentación y ejemplos de los estilos de Bootstrap](https://v4-alpha.getbootstrap.com/examples/) (ya incluidos en el ejercicio), agregue los elementos necesarios a la página para que sea más vistosa, y más cercana al mock dado al inicio del enunciado.
+    Para facilitar el cambio entre datos de prueba (mock) y datos reales, el controlador de la aplicación se diseñó para depender de una única variable llamada dataSource, en lugar de acoplarse directamente a ``apimock`` o ``apiclient``.  Esta variable dataSource se inicializa para apuntar a la fuente de datos deseada. Por ejemplo, para usar los datos de prueba se utiliza var dataSource = apimock;, mientras que para usar los datos reales de la API, solo es necesario cambiar esa línea a var dataSource = apiclient;    
+
+    ![](./img/semana2-8.png)
