@@ -23,8 +23,10 @@
         <input id="authorInput" type="text" class="form-control" placeholder="Enter author name" />
         <button id="getBlueprintsBtn" class="btn btn-primary">Get blueprints</button>
     </div>
-    <div id="selectedAuthor" class="mb-3" aria-live="polite"></div>
-    <div class="table-responsive">
+
+    <div id="selectedAuthor" class="mb-2" aria-live="polite"></div>
+
+    <div class="table-responsive mb-3">
         <table id="blueprintsTable" class="table table-striped table-bordered">
             <thead>
             <tr>
@@ -32,13 +34,23 @@
                 <th scope="col">Name</th>
                 <th scope="col">Author</th>
                 <th scope="col">Points</th>
+                <th scope="col">Action</th> <!-- nueva columna -->
             </tr>
             </thead>
             <tbody></tbody>
         </table>
     </div>
 
-    <div id="totalPoints" class="mt-2 fw-semibold"></div>
+    <div id="totalPoints" class="mt-2 fw-semibold mb-3"></div>
+
+    <!-- Canvas para dibujar los planos -->
+    <div class="card p-3">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="mb-0">Canvas</h5>
+            <!-- el nombre del blueprint seleccionado se añadirá dinámicamente si no existe -->
+        </div>
+        <canvas id="blueprintCanvas" width="600" height="380" style="border:1px solid #ccc; max-width:100%; height:auto;"></canvas>
+    </div>
 </div>
 </body>
 </html>

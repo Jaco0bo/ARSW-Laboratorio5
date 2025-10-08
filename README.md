@@ -150,12 +150,30 @@
 
 8. A la página, agregue un [elemento de tipo Canvas](https://www.w3schools.com/html/html5_canvas.asp), con su respectivo identificador. Haga que sus dimensiones no sean demasiado grandes para dejar espacio para los otros componentes, pero lo suficiente para poder 'dibujar' los planos.
 
+     Se añadió un ``<canvas>`` de tamaño moderado a la página para que sirviera como superficie de dibujo para los planos. Sus dimensiones se eligieron para dejar espacio para los controles y la tabla, a la vez que proporcionaban suficiente espacio para representar con claridad los puntos y los segmentos de conexión. El lienzo usa un ancho máximo del 100%, por lo que se reduce en ventanas gráficas más pequeñas. El ID del lienzo permite al controlador localizar, borrar o redibujar el plano mediante programación.    
+
+    ![](./img/semana2.png)
+
 9. Al módulo app.js agregue una operación que, dado el nombre de un autor, y el nombre de uno de sus planos dados como parámetros, haciendo uso del método getBlueprintsByNameAndAuthor de apimock.js y de una función _callback_:
 	* Consulte los puntos del plano correspondiente, y con los mismos dibuje consectivamente segmentos de recta, haciendo uso [de los elementos HTML5 (Canvas, 2DContext, etc) disponibles](https://www.w3schools.com/html/tryit.asp?filename=tryhtml5_canvas_tut_path)* Actualice con jQuery el campo <div> donde se muestra el nombre del plano que se está dibujando (si dicho campo no existe, agruéguelo al DOM).
 
+      La operación ``drawBlueprint(author, blueprintName)`` consulta ``apimock.getBlueprintsByNameAndAuthor(...)``, recibe la lista de puntos y dibuja el plano conectando los puntos consecutivamente en el lienzo mediante el contexto 2D (rutas, línea a y pequeños marcadores de punto). Tras obtener los datos, el código también actualiza un elemento DOM que muestra el nombre del plano dibujado (crea el elemento si no existe), lo que proporciona al usuario información inmediata sobre lo que se está renderizando.
+
+      ![](./img/semana2-2.png)
+
+      ![](./img/semana2-3.png)
+
 10. Verifique que la aplicación ahora, además de mostrar el listado de los planos de un autor, permita seleccionar uno de éstos y graficarlo. Para esto, haga que en las filas generadas para el punto 5 incluyan en la última columna un botón con su evento de clic asociado a la operación hecha anteriormente (enviándo como parámetro los nombres correspondientes).
 
+    Cada fila de la tabla ahora incluye un botón "Dibujar" conectado a la operación de dibujo con los parámetros de autor y nombre del plano correspondientes. Al hacer clic en el botón, la aplicación resalta y renderiza ese plano específico en el lienzo, para que los usuarios puedan inspeccionar cualquier entrada de la lista sin salir de la página.
+
+    ![](./img/semana2-4.png)    
+
 11. Verifique que la aplicación ahora permita: consultar los planos de un auto y graficar aquel que se seleccione.
+
+    Al integrar todo, la página permite la interacción completa: solicitar los planos de un autor, mostrar la lista (nombre + recuento de puntos) y representar visualmente cualquier plano seleccionado en el lienzo. Todo esto se realiza del lado del cliente y utiliza el archivo ``apimock.js`` proporcionado, lo que permite realizar pruebas de forma rápida y determinista. Además, prueba el flujo de la interfaz de usuario/controlador antes de conectarse a un backend real.
+
+    ![](./img/semana2-5.png)
 
 12. Una vez funcione la aplicación (sólo front-end), haga un módulo (llámelo 'apiclient') que tenga las mismas operaciones del 'apimock', pero que para las mismas use datos reales consultados del API REST. Para lo anterior revise [cómo hacer peticiones GET con jQuery](https://api.jquery.com/jquery.get/), y cómo se maneja el esquema de _callbacks_ en este contexto.
 
